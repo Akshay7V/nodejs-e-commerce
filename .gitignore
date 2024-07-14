@@ -1,0 +1,15 @@
+#ignore package.json file
+
+package.json
+
+#ignore node_modules
+
+node_modules
+
+#ignore bin
+
+bin
+
+#ignore package-local.json
+
+package-local.json
