@@ -8,15 +8,29 @@ var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 var hbs = require('express-handlebars');
 var app = express();
-var fileUpload = require('express-fileupload')
+var fileUpload = require('express-fileupload');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-app.engine('hbs',hbs.engine({extname:'hbs',defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/',partialsDir:__dirname+'/views/partials/'}));
+app.engine(
+  'hbs',
+  hbs.engine({
+    extname: 'hbs',
+    defaultLayout: 'layout',
+    layoutsDir: path.join(__dirname, 'views/layout/'), // Corrected path
+    partialsDir: path.join(__dirname, 'views/partials/'),
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
+  })
+);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload())
+app.use(fileUpload());
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
